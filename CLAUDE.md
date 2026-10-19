@@ -44,6 +44,6 @@ There is no frontend test runner configured.
 - `.mcp.json` configures the JetBrains IDE MCP server (`idea`), so IntelliJ tools (build, run configurations, inspections, database) are available when the IDE is open.
 
 ## User Preferences
-- Backend: Spring Boot 3, Java 21, layered architecture (controller → service → repository), DTOs for all API responses
+- Backend: Spring Boot 4, Java 21, layered architecture (controller → service → repository), DTOs for all API responses
 - Frontend: React + TypeScript + Vite, Axios for API calls, Recharts for charts
 - I'm learning: explain non-obvious decisions and don't write large features without a plan first
