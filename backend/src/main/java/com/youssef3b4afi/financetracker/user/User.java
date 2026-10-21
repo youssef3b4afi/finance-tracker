@@ -31,9 +31,14 @@ public class User {
     protected User() {}
 
     public User(String email, String passwordHash) {
-        this.email = email.trim().toLowerCase();
+        this.email = normalizeEmail(email);
         this.passwordHash = passwordHash;
         this.createdAt = Instant.now();
+    }
+
+    /** One rule for storing and looking up emails, so "Bob@Mail.com " finds "bob@mail.com". */
+    public static String normalizeEmail(String email) {
+        return email.trim().toLowerCase();
     }
 
     public Long getId() { return id; }
