@@ -5,14 +5,21 @@ import com.youssef3b4afi.financetracker.category.dto.CategoryRequest;
 import com.youssef3b4afi.financetracker.category.dto.CategoryResponse;
 import com.youssef3b4afi.financetracker.common.ConflictException;
 import com.youssef3b4afi.financetracker.common.NotFoundException;
+import com.youssef3b4afi.financetracker.user.User;
 import com.youssef3b4afi.financetracker.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CategoryService {
+
+    /** Starter set every new user gets (US-4); they can rename or delete any of them afterwards. */
+    private static final List<String> DEFAULT_INCOME = List.of("Salary", "Other Income");
+    private static final List<String> DEFAULT_EXPENSE =
+            List.of("Food", "Rent", "Transport", "Utilities", "Health", "Entertainment", "Shopping");
 
     private final CategoryRepository categories;
     private final UserRepository users;
@@ -42,6 +49,18 @@ public class CategoryService {
         // getReferenceById doesn't query the users table; we only need the id for the foreign key.
         Category category = new Category(users.getReferenceById(userId), request.name(), request.type());
         return mapper.toResponse(categories.save(category));
+    }
+
+    /**
+     * Called by AuthService.register. It joins the caller's transaction (the default "REQUIRED" propagation),
+     * so if anything here fails, the new user is rolled back too: no account ever exists without its categories.
+     */
+    @Transactional
+    public void createDefaults(User user) {
+        List<Category> defaults = new ArrayList<>();
+        DEFAULT_INCOME.forEach(name -> defaults.add(new Category(user, name, CategoryType.INCOME)));
+        DEFAULT_EXPENSE.forEach(name -> defaults.add(new Category(user, name, CategoryType.EXPENSE)));
+        categories.saveAll(defaults);
     }
 
     @Transactional

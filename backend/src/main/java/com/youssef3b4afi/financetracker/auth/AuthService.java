@@ -4,6 +4,7 @@ import com.youssef3b4afi.financetracker.auth.dto.LoginRequest;
 import com.youssef3b4afi.financetracker.auth.dto.RegisterRequest;
 import com.youssef3b4afi.financetracker.auth.dto.TokenResponse;
 import com.youssef3b4afi.financetracker.auth.dto.UserResponse;
+import com.youssef3b4afi.financetracker.category.CategoryService;
 import com.youssef3b4afi.financetracker.common.ConflictException;
 import com.youssef3b4afi.financetracker.common.NotFoundException;
 import com.youssef3b4afi.financetracker.user.User;
@@ -19,11 +20,14 @@ public class AuthService {
     private final UserRepository users;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final CategoryService categoryService;
 
-    public AuthService(UserRepository users, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthService(UserRepository users, PasswordEncoder passwordEncoder, JwtService jwtService,
+                       CategoryService categoryService) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.categoryService = categoryService;
     }
 
     @Transactional
@@ -33,6 +37,7 @@ public class AuthService {
             throw new ConflictException("Email is already registered");
         }
         User user = users.save(new User(email, passwordEncoder.encode(request.password())));
+        categoryService.createDefaults(user);
         return UserResponse.from(user);
     }
 
