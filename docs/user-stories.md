@@ -5,11 +5,11 @@ Build order: Auth → Categories → Transactions → Dashboard. Each story is a
 ## Auth
 - [x] **US-1** As a visitor, I can register with email and password so I have my own private ledger.
 - [x] **US-2** As a user, I can log in and stay logged in (JWT) until I log out or the token expires.
-- [ ] **US-3** As a user, I can only see and change my own data (other users' ids return 404).
+- [x] **US-3** As a user, I can only see and change my own data (other users' ids return 404).
 
 ## Categories
-- [ ] **US-4** As a new user, I get default categories (Salary, Food, Rent, Transport, …) so I can start right away.
-- [ ] **US-5** As a user, I can create, rename and delete my own categories, each typed INCOME or EXPENSE.
+- [x] **US-4** As a new user, I get default categories (Salary, Food, Rent, Transport, …) so I can start right away.
+- [x] **US-5** As a user, I can create, rename and delete my own categories, each typed INCOME or EXPENSE.
 - [ ] **US-6** I can't delete a category that still has transactions (clear error), so no data is orphaned.
 
 ## Transactions
