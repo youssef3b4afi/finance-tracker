@@ -39,6 +39,11 @@ There is no frontend test runner configured.
 - **Backend:** Spring Boot 4.1 with `spring-boot-starter-webmvc`. All code lives in package `com.youssef3b4afi.financetracker`; `BackendApplication` is the entry point.
 - **Database config caveat:** `application.properties` already points at the docker-compose Postgres (credentials overridable via `DB_USERNAME`/`DB_PASSWORD`) and sets `spring.jpa.hibernate.ddl-auto=update`, but `pom.xml` has only the Postgres JDBC driver — no JPA/JDBC starter — so those settings are currently inert. Once `spring-boot-starter-data-jpa` is added, Hibernate will auto-create/alter tables from entities, and the `@SpringBootTest` `contextLoads` test will require the database container to be running.
 
+## Roadmap and conventions
+
+- MVP user stories and build order: `docs/user-stories.md` (tick them off as they ship).
+- Detailed conventions live in project skills under `.claude/skills/` and load only when relevant: `backend-feature` (package-by-feature layers, DTOs, mappers), `db-migration` (Flyway), `backend-testing`, `auth-security` (JWT, data ownership), `frontend-feature` (axios, routing, Recharts). Keep this file short; put new detailed guidance in a skill.
+
 ## Repo quirks
 
 - `.mcp.json` configures the JetBrains IDE MCP server (`idea`), so IntelliJ tools (build, run configurations, inspections, database) are available when the IDE is open.
