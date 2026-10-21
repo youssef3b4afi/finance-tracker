@@ -3,8 +3,8 @@
 Build order: Auth → Categories → Transactions → Dashboard. Each story is a vertical slice: migration → API → UI → tests.
 
 ## Auth
-- [ ] **US-1** As a visitor, I can register with email and password so I have my own private ledger.
-- [ ] **US-2** As a user, I can log in and stay logged in (JWT) until I log out or the token expires.
+- [x] **US-1** As a visitor, I can register with email and password so I have my own private ledger.
+- [x] **US-2** As a user, I can log in and stay logged in (JWT) until I log out or the token expires.
 - [ ] **US-3** As a user, I can only see and change my own data (other users' ids return 404).
 
 ## Categories
