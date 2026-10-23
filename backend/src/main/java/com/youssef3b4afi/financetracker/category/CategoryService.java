@@ -81,8 +81,11 @@ public class CategoryService {
         categories.delete(findOwned(userId, id));
     }
 
-    /** Someone else's category gives the same 404 as a missing one, so ids can't be probed. */
-    private Category findOwned(Long userId, Long id) {
+    /**
+     * Someone else's category gives the same 404 as a missing one, so ids can't be probed.
+     * Public because TransactionService uses it to check that a transaction's category is the user's own.
+     */
+    public Category findOwned(Long userId, Long id) {
         return categories.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new NotFoundException("Category", id));
     }
