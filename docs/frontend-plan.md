@@ -45,11 +45,11 @@ backend running (`.\mvnw.cmd spring-boot:run` in `backend/`) and try it in the b
 - [x] **8c Page**: `TransactionsPage` — filter bar (from/to, type, category), table, paging, edit/delete per row.
 
 ## 9 · Dashboard UI (`feature/frontend-dashboard`) — US-10, US-11, US-12
-- [ ] **9a API**: types + `getSummary(month)`, `getExpensesByCategory(month)`, `getMonthly(month, months)`.
-- [ ] **9b Summary**: `SummaryCards` (income, expenses, balance) and a month picker.
-- [ ] **9c Charts**: expenses donut (`PieChart` + `Pie innerRadius` + `Cell`), monthly `BarChart`
+- [x] **9a API**: types + `getSummary(month)`, `getExpensesByCategory(month)`, `getMonthly(month, months)`.
+- [x] **9b Summary**: `SummaryCards` (income, expenses, balance) and a month picker.
+- [x] **9c Charts**: expenses donut (`PieChart` + `Pie innerRadius`, slice colors from each item's `fill`), monthly `BarChart`
   (income green, expenses red), each in `<ResponsiveContainer width="100%" height={300}>`.
-- [ ] **9d Page**: `DashboardPage` at `/` composing the above.
+- [x] **9d Page**: `DashboardPage` at `/` composing the above.
 
 ## Decisions worth knowing
 - **Month picker = `<input type="month">`**: its value is already `yyyy-MM`, the backend's format. The frontend always

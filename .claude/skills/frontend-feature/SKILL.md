@@ -40,7 +40,7 @@ frontend/src/
 ## Charts (dashboard, US-10–12)
 
 - Wrap every chart in `<ResponsiveContainer width="100%" height={300}>`.
-- Expenses by category: `PieChart` + `Pie` (`innerRadius` for a donut) + `Cell` per slice + `Tooltip` + `Legend`.
+- Expenses by category: `PieChart` + `Pie` (`innerRadius` for a donut) + `Tooltip`; color each slice with a `fill` field on its data item (`Cell` is deprecated in Recharts 3 and removed in 4).
 - Monthly income vs expense: `BarChart` with `XAxis dataKey="month"`, `YAxis`, two `Bar`s (income, expense), `Tooltip`.
 - The backend does the aggregation (dashboard endpoints); the frontend only renders the arrays.
 - Use one fixed color per category type (e.g. income green, expense red) and a stable palette for categories.

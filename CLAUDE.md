@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Finance tracker monorepo in early scaffolding: a Spring Boot REST API (`backend/`), a React + TypeScript SPA (`frontend/`), and a PostgreSQL database run via Docker (`docker-compose.yml`). The only real endpoint so far is `GET /api/health`; the frontend is still the Vite starter page.
+Personal finance tracker monorepo: a Spring Boot REST API (`backend/`), a React + TypeScript SPA (`frontend/`), and a PostgreSQL database run via Docker (`docker-compose.yml`). The MVP (auth, categories, transactions, dashboard; `docs/user-stories.md`) is built end to end in both backend and frontend.
 
 ## Commands
 
@@ -35,9 +35,9 @@ There is no frontend test runner configured.
 
 ## Architecture
 
-- **Frontend → backend wiring:** the frontend calls relative `/api/...` URLs; `frontend/vite.config.ts` proxies `/api` to the backend on port **8081** (not Spring's default 8080, set via `server.port` in `application.properties`). Keep all backend routes under `/api` so the proxy works. Installed but not yet used: `axios` (HTTP), `react-router-dom` (routing), `recharts` (charts).
+- **Frontend → backend wiring:** the frontend calls relative `/api/...` URLs; `frontend/vite.config.ts` proxies `/api` to the backend on port **8081** (not Spring's default 8080, set via `server.port` in `application.properties`). Keep all backend routes under `/api` so the proxy works. All requests go through the one axios instance in `frontend/src/api/client.ts`, which adds the JWT and sends the user to `/login` on a 401.
 - **Backend:** Spring Boot 4.1 with `spring-boot-starter-webmvc`. All code lives in package `com.youssef3b4afi.financetracker`; `BackendApplication` is the entry point.
-- **Database config caveat:** `application.properties` already points at the docker-compose Postgres (credentials overridable via `DB_USERNAME`/`DB_PASSWORD`) and sets `spring.jpa.hibernate.ddl-auto=update`, but `pom.xml` has only the Postgres JDBC driver — no JPA/JDBC starter — so those settings are currently inert. Once `spring-boot-starter-data-jpa` is added, Hibernate will auto-create/alter tables from entities, and the `@SpringBootTest` `contextLoads` test will require the database container to be running.
+- **Database:** `application.properties` points at the docker-compose Postgres (credentials overridable via `DB_USERNAME`/`DB_PASSWORD`). Flyway migrations own the schema; Hibernate only validates it (`ddl-auto=validate`). Tests start their own Postgres with Testcontainers, so Docker must be running for `./mvnw test`.
 
 ## Roadmap and conventions
 
