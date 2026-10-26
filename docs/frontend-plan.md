@@ -13,13 +13,13 @@ Check after every step (no test runner): `npm run lint`, `npm run build` (type-c
 backend running (`.\mvnw.cmd spring-boot:run` in `backend/`) and try it in the browser.
 
 ## 5 · Foundation (`feature/frontend-foundation`)
-- [ ] **5a API layer**
+- [x] **5a API layer**
   - `api/client.ts`: the one axios instance, `baseURL: '/api'`; request interceptor adds `Authorization: Bearer <token>`;
     a 401 response clears the token and redirects to `/login`.
   - `api/types.ts`: `ProblemDetail` (`title, status, detail, errors?`) and `PageResponse<T>`
     (`content, page, size, totalElements, totalPages`), mirroring the backend.
   - `api/errors.ts`: one helper that extracts `detail` and per-field `errors` from a failed request.
-- [ ] **5b Shared UI**
+- [x] **5b Shared UI**
   - `components/`: `Layout` (nav: Dashboard, Transactions, Categories, Logout), `ErrorMessage`, `Spinner`.
   - `format.ts`: money (EGP) and date formatters.
   - Remove the Vite starter page and its CSS.
