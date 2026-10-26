@@ -4,6 +4,7 @@ import com.youssef3b4afi.financetracker.category.dto.CategoryRenameRequest;
 import com.youssef3b4afi.financetracker.category.dto.CategoryRequest;
 import com.youssef3b4afi.financetracker.common.ConflictException;
 import com.youssef3b4afi.financetracker.common.NotFoundException;
+import com.youssef3b4afi.financetracker.transaction.TransactionRepository;
 import com.youssef3b4afi.financetracker.user.User;
 import com.youssef3b4afi.financetracker.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,13 +37,16 @@ class CategoryServiceTest {
     CategoryRepository categories;
 
     @Mock
+    TransactionRepository transactions;
+
+    @Mock
     UserRepository users;
 
     CategoryService service;
 
     @BeforeEach
     void setUp() {
-        service = new CategoryService(categories, users, new CategoryMapper());
+        service = new CategoryService(categories, transactions, users, new CategoryMapper());
     }
 
     @Test
@@ -78,6 +82,18 @@ class CategoryServiceTest {
         when(categories.findByIdAndUserId(5L, USER_ID)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.delete(USER_ID, 5L)).isInstanceOf(NotFoundException.class);
+        verify(categories, never()).delete(any());
+    }
+
+    @Test
+    void deleteThrowsConflictAndDeletesNothingWhenCategoryHasTransactions() {
+        Category food = new Category(new User("a@example.com", "hash"), "Food", CategoryType.EXPENSE);
+        when(categories.findByIdAndUserId(5L, USER_ID)).thenReturn(Optional.of(food));
+        when(transactions.existsByCategoryId(food.getId())).thenReturn(true);
+
+        assertThatThrownBy(() -> service.delete(USER_ID, 5L))
+                .isInstanceOf(ConflictException.class)
+                .hasMessageContaining("still has transactions");
         verify(categories, never()).delete(any());
     }
 }
