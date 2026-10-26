@@ -419,3 +419,14 @@ tr:last-child td {
   margin-right: 8px;
   border-radius: 2px;
 }
+
+/* Inside a grid the gap already spaces the cards; their own bottom margin would double it. */
+.stats,
+.grid-2 {
+  margin-bottom: 20px;
+}
+
+.stats > .card,
+.grid-2 > .card {
+  margin-bottom: 0;
+}

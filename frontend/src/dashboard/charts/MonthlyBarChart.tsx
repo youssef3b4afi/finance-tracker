@@ -22,7 +22,8 @@ export default function MonthlyBarChart({ data }: { data: MonthlyTotal[] }) {
           cursor={{ fill: 'var(--border)', opacity: 0.4 }}
           {...tooltipStyles}
         />
-        <Legend formatter={(value) => <span style={{ color: 'var(--text)' }}>{value}</span>} />
+        {/* itemSorter null: keep the bars' order (Income, Expenses) instead of Recharts' alphabetical default. */}
+        <Legend itemSorter={null} formatter={(value) => <span style={{ color: 'var(--text)' }}>{value}</span>} />
         {/* Rounded tops only: the bottom sits flat on the axis. maxBarSize keeps bars slim with few months. */}
         <Bar dataKey="income" name="Income" fill="var(--income)" radius={[4, 4, 0, 0]} maxBarSize={28} />
         <Bar dataKey="expenses" name="Expenses" fill="var(--expense)" radius={[4, 4, 0, 0]} maxBarSize={28} />
