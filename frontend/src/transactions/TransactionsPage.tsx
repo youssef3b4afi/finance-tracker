@@ -152,7 +152,8 @@ export default function TransactionsPage() {
           Previous
         </button>
         <span className="muted">
-          Page {page + 1} of {Math.max(data.totalPages, 1)} · {data.totalElements} transactions
+          Page {page + 1} of {Math.max(data.totalPages, 1)} · {data.totalElements}{' '}
+          {data.totalElements === 1 ? 'transaction' : 'transactions'}
         </span>
         <button className="button-secondary" disabled={page + 1 >= data.totalPages} onClick={() => setPage(page + 1)}>
           Next
