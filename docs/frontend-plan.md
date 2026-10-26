@@ -39,10 +39,10 @@ backend running (`.\mvnw.cmd spring-boot:run` in `backend/`) and try it in the b
   409 message ("Category 'Food' still has transactions") is shown as is.
 
 ## 8 · Transactions UI (`feature/frontend-transactions`) — US-7, US-8, US-9
-- [ ] **8a API**: types + list (`from, to, categoryId, type, page, size`), get, create, update, delete.
-- [ ] **8b Form**: `TransactionForm` for create and edit — category select grouped by type, amount, date
+- [x] **8a API**: types + list (`from, to, categoryId, type, page, size`), get, create, update, delete.
+- [x] **8b Form**: `TransactionForm` for create and edit — category select grouped by type, amount, date
   (default today), optional note; backend 400 field errors shown under each input.
-- [ ] **8c Page**: `TransactionsPage` — filter bar (from/to, type, category), table, paging, edit/delete per row.
+- [x] **8c Page**: `TransactionsPage` — filter bar (from/to, type, category), table, paging, edit/delete per row.
 
 ## 9 · Dashboard UI (`feature/frontend-dashboard`) — US-10, US-11, US-12
 - [ ] **9a API**: types + `getSummary(month)`, `getExpensesByCategory(month)`, `getMonthly(month, months)`.
