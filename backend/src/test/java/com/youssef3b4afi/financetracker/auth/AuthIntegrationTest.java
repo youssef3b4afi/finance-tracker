@@ -57,6 +57,24 @@ class AuthIntegrationTest {
                 .andExpect(jsonPath("$.errors.password").exists());
     }
 
+    /** The messages the register page shows under each field (the rules themselves are in RegisterRequestTest). */
+    @Test
+    void registerRejectsDotlessDomainAndWeakPasswordWithClearMessages() throws Exception {
+        register("someone@g", "password1")
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.email").value("must be a valid email address, e.g. name@example.com"))
+                .andExpect(jsonPath("$.errors.password")
+                        .value("must contain at least one digit and one special character"));
+    }
+
+    /** The new password rule only applies to registration: login still accepts what an account was created with. */
+    @Test
+    void loginDoesNotApplyPasswordRules() throws Exception {
+        login("rules@example.com", "weak")
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.detail").value("Invalid email or password"));
+    }
+
     @Test
     void loginFailsWithWrongPassword() throws Exception {
         register("wrongpw@example.com", "secret-123");
