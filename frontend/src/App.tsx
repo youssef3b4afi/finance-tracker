@@ -1,9 +1,43 @@
-// Placeholder until the router and pages arrive in step 6c.
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { useAuth } from './auth/AuthContext'
+import AuthProvider from './auth/AuthProvider'
+import LoginPage from './auth/LoginPage'
+import RegisterPage from './auth/RegisterPage'
+import RequireAuth from './auth/RequireAuth'
+import Layout from './components/Layout'
+
+/** Layout with the logout button wired to auth (Layout itself doesn't know about auth). */
+function AppLayout() {
+  const { logout } = useAuth()
+  return <Layout onLogout={logout} />
+}
+
+// Created once, outside the component, so the route table isn't rebuilt on every render.
+const router = createBrowserRouter([
+  { path: '/login', element: <LoginPage /> },
+  { path: '/register', element: <RegisterPage /> },
+  {
+    // A "layout route": no path of its own; its children render inside Layout's <Outlet />.
+    element: (
+      <RequireAuth>
+        <AppLayout />
+      </RequireAuth>
+    ),
+    children: [
+      { index: true, element: <h1>Dashboard</h1> },
+      { path: 'transactions', element: <h1>Transactions</h1> },
+      { path: 'categories', element: <h1>Categories</h1> },
+    ],
+  },
+  // Unknown URLs go to the dashboard (or on to /login when logged out).
+  { path: '*', element: <Navigate to="/" replace /> },
+])
+
 function App() {
   return (
-    <main className="page">
-      <h1>Finance Tracker</h1>
-    </main>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   )
 }
 

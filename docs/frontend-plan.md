@@ -25,11 +25,11 @@ backend running (`.\mvnw.cmd spring-boot:run` in `backend/`) and try it in the b
   - Remove the Vite starter page and its CSS.
 
 ## 6 · Auth UI (`feature/frontend-auth`) — US-1, US-2, US-3
-- [ ] **6a API**: `auth/types.ts`, `auth/api.ts` — `register` (`POST /auth/register`), `login` (`POST /auth/login` →
+- [x] **6a API**: `auth/types.ts`, `auth/api.ts` — `register` (`POST /auth/register`), `login` (`POST /auth/login` →
   `{ token, expiresAt }`), `me` (`GET /auth/me` → `{ id, email }`).
-- [ ] **6b State**: `AuthContext` keeps token + `expiresAt` in localStorage, loads the user from `/me`,
+- [x] **6b State**: `AuthContext` keeps token + `expiresAt` in localStorage, loads the user from `/me`,
   exposes `login()` / `logout()`; `RequireAuth` redirects to `/login` when there is no token or it has expired.
-- [ ] **6c Pages and routes**: `LoginPage`, `RegisterPage` (logs in automatically after registering);
+- [x] **6c Pages and routes**: `LoginPage`, `RegisterPage` (logs in automatically after registering);
   `App.tsx` with `createBrowserRouter` — public `/login`, `/register`; everything else inside `RequireAuth`.
 
 ## 7 · Categories UI (`feature/frontend-categories`) — US-4, US-5, US-6

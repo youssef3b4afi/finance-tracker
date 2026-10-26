@@ -1,7 +1,5 @@
 import axios from 'axios'
-
-/** localStorage key for the JWT; AuthContext reads and writes the same key. */
-export const TOKEN_KEY = 'token'
+import { clearToken, getToken } from '../auth/tokenStorage'
 
 /**
  * The one axios instance the app uses. Relative baseURL so the Vite dev server
@@ -10,7 +8,7 @@ export const TOKEN_KEY = 'token'
 const client = axios.create({ baseURL: '/api' })
 
 client.interceptors.request.use((config) => {
-  const token = localStorage.getItem(TOKEN_KEY)
+  const token = getToken()
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -28,7 +26,7 @@ client.interceptors.response.use(
     if (error.response?.status === 401 && !isAuthRequest) {
       // The token is missing, expired or invalid: forget it and start over at the login page.
       // window.location, not react-router, because this code runs outside React components.
-      localStorage.removeItem(TOKEN_KEY)
+      clearToken()
       window.location.assign('/login')
     }
     return Promise.reject(error)
