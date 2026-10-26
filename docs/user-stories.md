@@ -20,9 +20,9 @@ Build order: Auth → Categories → Transactions → Dashboard. Each story is a
 Validation: amount > 0 with 2 decimals (`BigDecimal`); income/expense comes from the category type; date required.
 
 ## Dashboard
-- [ ] **US-10** I see this month's total income, total expenses and balance.
-- [ ] **US-11** I see a donut chart of expenses by category for a chosen month.
-- [ ] **US-12** I see a bar chart of income vs expense for the last 6–12 months.
+- [x] **US-10** I see this month's total income, total expenses and balance.
+- [x] **US-11** I see a donut chart of expenses by category for a chosen month.
+- [x] **US-12** I see a bar chart of income vs expense for the last 6–12 months.
 
 ## Later (not MVP)
 Budgets per category, multiple accounts and transfers, recurring transactions, CSV import/export.
