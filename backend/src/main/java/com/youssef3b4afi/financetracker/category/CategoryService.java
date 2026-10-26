@@ -5,6 +5,7 @@ import com.youssef3b4afi.financetracker.category.dto.CategoryRequest;
 import com.youssef3b4afi.financetracker.category.dto.CategoryResponse;
 import com.youssef3b4afi.financetracker.common.ConflictException;
 import com.youssef3b4afi.financetracker.common.NotFoundException;
+import com.youssef3b4afi.financetracker.transaction.TransactionRepository;
 import com.youssef3b4afi.financetracker.user.User;
 import com.youssef3b4afi.financetracker.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,14 @@ public class CategoryService {
             List.of("Food", "Rent", "Transport", "Utilities", "Health", "Entertainment", "Shopping");
 
     private final CategoryRepository categories;
+    private final TransactionRepository transactions;
     private final UserRepository users;
     private final CategoryMapper mapper;
 
-    public CategoryService(CategoryRepository categories, UserRepository users, CategoryMapper mapper) {
+    public CategoryService(CategoryRepository categories, TransactionRepository transactions,
+                           UserRepository users, CategoryMapper mapper) {
         this.categories = categories;
+        this.transactions = transactions;
         this.users = users;
         this.mapper = mapper;
     }
@@ -77,8 +81,13 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long userId, Long id) {
-        // The "category still has transactions" rule (US-6) is added together with transactions.
-        categories.delete(findOwned(userId, id));
+        Category category = findOwned(userId, id);
+        // US-6: refuse with a clear 409 instead of orphaning transactions. The foreign key in V3 is the
+        // backstop if a transaction is added between this check and the delete.
+        if (transactions.existsByCategoryId(category.getId())) {
+            throw new ConflictException("Category '" + category.getName() + "' still has transactions");
+        }
+        categories.delete(category);
     }
 
     /**

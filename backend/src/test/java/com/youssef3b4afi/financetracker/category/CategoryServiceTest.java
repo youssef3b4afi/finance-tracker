@@ -4,6 +4,7 @@ import com.youssef3b4afi.financetracker.category.dto.CategoryRenameRequest;
 import com.youssef3b4afi.financetracker.category.dto.CategoryRequest;
 import com.youssef3b4afi.financetracker.common.ConflictException;
 import com.youssef3b4afi.financetracker.common.NotFoundException;
+import com.youssef3b4afi.financetracker.transaction.TransactionRepository;
 import com.youssef3b4afi.financetracker.user.User;
 import com.youssef3b4afi.financetracker.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,13 +37,16 @@ class CategoryServiceTest {
     CategoryRepository categories;
 
     @Mock
+    TransactionRepository transactions;
+
+    @Mock
     UserRepository users;
 
     CategoryService service;
 
     @BeforeEach
     void setUp() {
-        service = new CategoryService(categories, users, new CategoryMapper());
+        service = new CategoryService(categories, transactions, users, new CategoryMapper());
     }
 
     @Test
