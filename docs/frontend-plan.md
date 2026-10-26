@@ -33,9 +33,9 @@ backend running (`.\mvnw.cmd spring-boot:run` in `backend/`) and try it in the b
   `App.tsx` with `createBrowserRouter` — public `/login`, `/register`; everything else inside `RequireAuth`.
 
 ## 7 · Categories UI (`feature/frontend-categories`) — US-4, US-5, US-6
-- [ ] **7a API**: types + `listCategories`, `createCategory` (`{ name, type }`), `renameCategory` (`PUT`, `{ name }`),
+- [x] **7a API**: types + `listCategories`, `createCategory` (`{ name, type }`), `renameCategory` (`PUT`, `{ name }`),
   `deleteCategory`.
-- [ ] **7b Page**: `CategoriesPage` — Income and Expense lists, create form, inline rename, delete. The backend's
+- [x] **7b Page**: `CategoriesPage` — Income and Expense lists, create form, inline rename, delete. The backend's
   409 message ("Category 'Food' still has transactions") is shown as is.
 
 ## 8 · Transactions UI (`feature/frontend-transactions`) — US-7, US-8, US-9
