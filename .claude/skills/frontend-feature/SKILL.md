@@ -35,7 +35,7 @@ frontend/src/
 
 - Function components + hooks. Data loading: `useEffect` + `useState` for `data / loading / error` (keep it explicit while learning; a library like TanStack Query can come later).
 - Controlled forms; validate the obvious client-side (required, amount > 0) but treat backend validation as the source of truth.
-- Format money with `Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' })` in one helper; dates are ISO `YYYY-MM-DD` strings in the API.
+- Format money with `Intl.NumberFormat(undefined, { style: 'currency', currency: 'EGP' })` in one helper; dates are ISO `YYYY-MM-DD` strings in the API.
 
 ## Charts (dashboard, US-10–12)
 
