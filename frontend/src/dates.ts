@@ -11,3 +11,8 @@ export function todayIso(): string {
   const now = new Date()
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
 }
+
+/** The current month as "2026-10", in the user's own time zone. */
+export function currentMonth(): string {
+  return todayIso().slice(0, 7)
+}

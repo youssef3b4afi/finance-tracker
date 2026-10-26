@@ -6,6 +6,7 @@ import RegisterPage from './auth/RegisterPage'
 import RequireAuth from './auth/RequireAuth'
 import CategoriesPage from './categories/CategoriesPage'
 import Layout from './components/Layout'
+import DashboardPage from './dashboard/DashboardPage'
 import TransactionsPage from './transactions/TransactionsPage'
 
 /** Layout with the logout button wired to auth (Layout itself doesn't know about auth). */
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       </RequireAuth>
     ),
     children: [
-      { index: true, element: <h1>Dashboard</h1> },
+      { index: true, element: <DashboardPage /> },
       { path: 'transactions', element: <TransactionsPage /> },
       { path: 'categories', element: <CategoriesPage /> },
     ],
