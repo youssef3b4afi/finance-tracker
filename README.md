@@ -24,6 +24,20 @@ and charts. A Spring Boot REST API, a React + TypeScript single-page app, and a 
 
 Amounts are shown in Egyptian pounds (EGP).
 
+## Screenshots
+
+**Dashboard:** monthly summary, expenses by category, and income vs expenses over six months.
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Transactions:** filter by date range, type and category; paged, newest first.
+
+![Transactions](docs/screenshots/transactions.png)
+
+**Categories:** income and expense categories, with the defaults every new account starts with.
+
+![Categories](docs/screenshots/categories.png)
+
 ## Tech stack
 
 | Layer    | Technology |
@@ -162,7 +176,7 @@ finance-tracker/
 │       └── common/       error handling, paging, current user
 ├── frontend/             React + TypeScript SPA (Vite)
 │   └── src/              auth/, categories/, transactions/, dashboard/, api/, components/
-├── docs/                 user stories and frontend build plan
+├── docs/                 user stories, frontend build plan, screenshots
 └── docker-compose.yml    PostgreSQL for local development
 ```
 
