@@ -430,3 +430,9 @@ tr:last-child td {
 .grid-2 > .card {
   margin-bottom: 0;
 }
+
+/* One-line explanation under a card's heading. */
+.card-hint {
+  margin: -6px 0 14px;
+  font-size: 0.9rem;
+}
