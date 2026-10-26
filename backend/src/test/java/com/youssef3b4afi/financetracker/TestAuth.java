@@ -16,7 +16,7 @@ public final class TestAuth {
 
     public static String newUserToken(MockMvc mvc) throws Exception {
         String body = """
-                {"email": "user-%s@example.com", "password": "secret123"}
+                {"email": "user-%s@example.com", "password": "secret-123"}
                 """.formatted(UUID.randomUUID());
 
         mvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(body))
