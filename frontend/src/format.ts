@@ -16,3 +16,11 @@ export function formatDate(isoDate: string): string {
   const [year, month, day] = isoDate.split('-').map(Number)
   return dateFormat.format(new Date(year, month - 1, day))
 }
+
+const monthFormat = new Intl.DateTimeFormat(undefined, { month: 'short', year: 'numeric' })
+
+/** "2026-10" -> "Oct 2026". Built from local parts for the same time-zone reason as formatDate. */
+export function formatMonth(yearMonth: string): string {
+  const [year, month] = yearMonth.split('-').map(Number)
+  return monthFormat.format(new Date(year, month - 1, 1))
+}

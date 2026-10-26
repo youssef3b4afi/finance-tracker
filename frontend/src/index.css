@@ -348,3 +348,32 @@ tr:last-child td {
   gap: 16px;
   margin-top: 16px;
 }
+
+/* ---- Dashboard ---- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 4px solid var(--border);
+}
+
+.stat-income {
+  border-top-color: var(--income);
+}
+
+.stat-expense {
+  border-top-color: var(--expense);
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  color: var(--text-strong);
+  font-variant-numeric: tabular-nums;
+}
