@@ -6,6 +6,7 @@ import RegisterPage from './auth/RegisterPage'
 import RequireAuth from './auth/RequireAuth'
 import CategoriesPage from './categories/CategoriesPage'
 import Layout from './components/Layout'
+import TransactionsPage from './transactions/TransactionsPage'
 
 /** Layout with the logout button wired to auth (Layout itself doesn't know about auth). */
 function AppLayout() {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <h1>Dashboard</h1> },
-      { path: 'transactions', element: <h1>Transactions</h1> },
+      { path: 'transactions', element: <TransactionsPage /> },
       { path: 'categories', element: <CategoriesPage /> },
     ],
   },

@@ -295,3 +295,56 @@ a {
   color: var(--expense);
   border-color: var(--expense);
 }
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ---- Tables ---- */
+
+.table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+th {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Right-aligned digits in a fixed width line up, so amounts are easy to compare. */
+.number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
