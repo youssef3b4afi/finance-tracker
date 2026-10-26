@@ -224,3 +224,74 @@ a {
     padding: 16px;
   }
 }
+
+/* ---- Shared page building blocks ---- */
+
+.card {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+
+/* Inputs side by side, wrapping to new lines on narrow screens. */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.row-actions,
+.inline-form {
+  display: flex;
+  gap: 6px;
+}
+
+.inline-form {
+  flex: 1;
+}
+
+.inline-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+.button-small {
+  padding: 3px 10px;
+  font-size: 0.875rem;
+}
+
+.button-danger {
+  background: transparent;
+  color: var(--expense);
+  border-color: var(--expense);
+}

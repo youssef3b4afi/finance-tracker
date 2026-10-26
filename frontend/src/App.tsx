@@ -4,6 +4,7 @@ import AuthProvider from './auth/AuthProvider'
 import LoginPage from './auth/LoginPage'
 import RegisterPage from './auth/RegisterPage'
 import RequireAuth from './auth/RequireAuth'
+import CategoriesPage from './categories/CategoriesPage'
 import Layout from './components/Layout'
 
 /** Layout with the logout button wired to auth (Layout itself doesn't know about auth). */
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <h1>Dashboard</h1> },
       { path: 'transactions', element: <h1>Transactions</h1> },
-      { path: 'categories', element: <h1>Categories</h1> },
+      { path: 'categories', element: <CategoriesPage /> },
     ],
   },
   // Unknown URLs go to the dashboard (or on to /login when logged out).
