@@ -84,4 +84,16 @@ class CategoryServiceTest {
         assertThatThrownBy(() -> service.delete(USER_ID, 5L)).isInstanceOf(NotFoundException.class);
         verify(categories, never()).delete(any());
     }
+
+    @Test
+    void deleteThrowsConflictAndDeletesNothingWhenCategoryHasTransactions() {
+        Category food = new Category(new User("a@example.com", "hash"), "Food", CategoryType.EXPENSE);
+        when(categories.findByIdAndUserId(5L, USER_ID)).thenReturn(Optional.of(food));
+        when(transactions.existsByCategoryId(food.getId())).thenReturn(true);
+
+        assertThatThrownBy(() -> service.delete(USER_ID, 5L))
+                .isInstanceOf(ConflictException.class)
+                .hasMessageContaining("still has transactions");
+        verify(categories, never()).delete(any());
+    }
 }

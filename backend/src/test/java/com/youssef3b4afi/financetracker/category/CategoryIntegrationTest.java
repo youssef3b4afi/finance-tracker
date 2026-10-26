@@ -101,6 +101,25 @@ class CategoryIntegrationTest {
                 .andExpect(status().isNotFound());
     }
 
+    /** US-6: a category in use can't be deleted, and it stays usable. */
+    @Test
+    void deleteRejectsCategoryWithTransactions() throws Exception {
+        long food = idOf(token, "Food");
+        mvc.perform(post("/api/transactions")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"categoryId": %d, "amount": 9.99, "date": "2026-10-01"}
+                                """.formatted(food)))
+                .andExpect(status().isCreated());
+
+        mvc.perform(delete("/api/categories/" + food).header("Authorization", "Bearer " + token))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.detail").value("Category 'Food' still has transactions"));
+        mvc.perform(get("/api/categories/" + food).header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
+    }
+
     /** US-3: another user's category behaves exactly like one that doesn't exist, and stays untouched. */
     @Test
     void otherUsersCategoryIsNotFound() throws Exception {

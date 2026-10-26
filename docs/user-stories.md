@@ -10,12 +10,12 @@ Build order: Auth → Categories → Transactions → Dashboard. Each story is a
 ## Categories
 - [x] **US-4** As a new user, I get default categories (Salary, Food, Rent, Transport, …) so I can start right away.
 - [x] **US-5** As a user, I can create, rename and delete my own categories, each typed INCOME or EXPENSE.
-- [ ] **US-6** I can't delete a category that still has transactions (clear error), so no data is orphaned.
+- [x] **US-6** I can't delete a category that still has transactions (clear error), so no data is orphaned.
 
 ## Transactions
-- [ ] **US-7** As a user, I can record a transaction with amount, date, category and optional note.
-- [ ] **US-8** I can edit and delete a transaction.
-- [ ] **US-9** I can list transactions, paged and newest first, filtered by date range, category and type.
+- [x] **US-7** As a user, I can record a transaction with amount, date, category and optional note.
+- [x] **US-8** I can edit and delete a transaction.
+- [x] **US-9** I can list transactions, paged and newest first, filtered by date range, category and type.
 
 Validation: amount > 0 with 2 decimals (`BigDecimal`); income/expense comes from the category type; date required.
 
