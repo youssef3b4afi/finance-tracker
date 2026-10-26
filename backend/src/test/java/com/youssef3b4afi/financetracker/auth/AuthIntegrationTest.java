@@ -32,7 +32,7 @@ class AuthIntegrationTest {
 
     @Test
     void registerCreatesUserWithNormalizedEmail() throws Exception {
-        register("  New.User@Example.COM ", "secret123")
+        register("  New.User@Example.COM ", "secret-123")
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/api/auth/me"))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -42,9 +42,9 @@ class AuthIntegrationTest {
 
     @Test
     void registerRejectsDuplicateEmailIgnoringCase() throws Exception {
-        register("dup@example.com", "secret123").andExpect(status().isCreated());
+        register("dup@example.com", "secret-123").andExpect(status().isCreated());
 
-        register("DUP@example.com", "other-secret")
+        register("DUP@example.com", "other-secret-1")
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.detail").value("Email is already registered"));
     }
@@ -59,7 +59,7 @@ class AuthIntegrationTest {
 
     @Test
     void loginFailsWithWrongPassword() throws Exception {
-        register("wrongpw@example.com", "secret123");
+        register("wrongpw@example.com", "secret-123");
 
         login("wrongpw@example.com", "not-the-password")
                 .andExpect(status().isUnauthorized())
@@ -68,7 +68,7 @@ class AuthIntegrationTest {
 
     @Test
     void loginFailsForUnknownEmailWithSameMessage() throws Exception {
-        login("nobody@example.com", "secret123")
+        login("nobody@example.com", "secret-123")
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.detail").value("Invalid email or password"));
     }
@@ -80,8 +80,8 @@ class AuthIntegrationTest {
 
     @Test
     void meRejectsTamperedToken() throws Exception {
-        register("tamper@example.com", "secret123");
-        String token = tokenFor("tamper@example.com", "secret123");
+        register("tamper@example.com", "secret-123");
+        String token = tokenFor("tamper@example.com", "secret-123");
 
         // Change one character of the signature: the token must no longer be accepted.
         String last = token.substring(token.length() - 1);
@@ -93,8 +93,8 @@ class AuthIntegrationTest {
 
     @Test
     void registerLoginAndMeFlow() throws Exception {
-        register("flow@example.com", "secret123").andExpect(status().isCreated());
-        String token = tokenFor("flow@example.com", "secret123");
+        register("flow@example.com", "secret-123").andExpect(status().isCreated());
+        String token = tokenFor("flow@example.com", "secret-123");
 
         mvc.perform(get("/api/auth/me").header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
