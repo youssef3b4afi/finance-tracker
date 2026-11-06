@@ -81,6 +81,14 @@
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
 
+		<!-- OpenAPI docs: generates the API spec from the controllers and serves Swagger UI.
+		     Not managed by Spring Boot, so the version is set here; 3.1.x is built against Boot 4.1. -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+
 		<!-- Test slices and a real Postgres in Docker for tests -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
