@@ -101,9 +101,12 @@ class AuthIntegrationTest {
         register("tamper@example.com", "secret-123");
         String token = tokenFor("tamper@example.com", "secret-123");
 
-        // Change one character of the signature: the token must no longer be accepted.
-        String last = token.substring(token.length() - 1);
-        String tampered = token.substring(0, token.length() - 1) + (last.equals("A") ? "B" : "A");
+        // Change the first character of the signature (the part after the last '.'): the token must no longer
+        // be accepted. Not the last character: a 32-byte signature is 43 base64url characters, and the last one
+        // carries 2 padding bits, so swapping e.g. 'A' for 'B' there decodes to the very same signature.
+        int sigStart = token.lastIndexOf('.') + 1;
+        char first = token.charAt(sigStart);
+        String tampered = token.substring(0, sigStart) + (first == 'A' ? 'B' : 'A') + token.substring(sigStart + 1);
 
         mvc.perform(get("/api/auth/me").header("Authorization", "Bearer " + tampered))
                 .andExpect(status().isUnauthorized());
