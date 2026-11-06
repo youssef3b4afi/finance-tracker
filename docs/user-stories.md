@@ -25,4 +25,29 @@ Validation: amount > 0 with 2 decimals (`BigDecimal`); income/expense comes from
 - [x] **US-12** I see a bar chart of income vs expense for the last 6–12 months.
 
 ## Later (not MVP)
-Budgets per category, multiple accounts and transfers, recurring transactions, CSV import/export.
+
+### Product
+- Budgets per category, with a warning when a month goes over budget
+- Recurring transactions (rent, salary) created automatically each month
+- Multiple accounts (cash, bank, card) and transfers between them
+- CSV import (bank statements) and export
+- Search transactions by note; quick date filters ("this month", "last 3 months")
+- Yearly report and savings rate; savings goals
+- Tags on transactions, in addition to categories
+- Attach a receipt photo to a transaction
+- Dark mode, better mobile layout, installable PWA; Arabic translation (right-to-left)
+
+### Accounts and security
+- Password reset and email verification (needs an email service)
+- Change password; delete account and all its data
+- Refresh tokens so users aren't logged out after 8 hours; real logout (revoke tokens)
+- Rate-limit login attempts; "Sign in with Google"
+
+### Engineering
+- CD: Dockerfiles, images on GitHub Container Registry, deploy with a managed Postgres
+- Require CI to pass before merging into `main` (branch protection)
+- Frontend tests: Vitest + React Testing Library, then Playwright end-to-end tests in CI
+- API docs with Swagger UI (springdoc-openapi)
+- Code coverage (JaCoCo) reported in CI
+- Dependabot for dependency updates; CodeQL security scanning
+- Spring Boot Actuator health/metrics for the deployed app; database backups

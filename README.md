@@ -1,5 +1,6 @@
 # Finance Tracker
 
+[![CI](https://github.com/youssef3b4afi/finance-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/youssef3b4afi/finance-tracker/actions/workflows/ci.yml)
 ![Java 21](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot 4.1](https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F)
 ![React 19](https://img.shields.io/badge/React-19-61DAFB)
@@ -162,6 +163,13 @@ npm run lint    # ESLint
 npm run build   # type-check with tsc, then production build
 ```
 
+### Continuous integration
+
+[GitHub Actions](.github/workflows/ci.yml) runs these same checks on every push to `main` and every pull request:
+the backend job runs `./mvnw -B verify` (all tests, with Testcontainers using the runner's Docker) and the frontend
+job runs `npm ci`, `npm run lint` and `npm run build`. The built jar and `dist/` folder are kept as downloadable
+artifacts on each run for 7 days.
+
 ## Project structure
 
 ```
@@ -182,7 +190,8 @@ finance-tracker/
 
 ## Roadmap
 
-The MVP user stories in [`docs/user-stories.md`](docs/user-stories.md) are all done. Ideas for later:
+The MVP user stories in [`docs/user-stories.md`](docs/user-stories.md) are all done. Next up is deployment (CD);
+the full list of planned features is in the same file. Highlights:
 
 - Budgets per category
 - Multiple accounts and transfers between them
