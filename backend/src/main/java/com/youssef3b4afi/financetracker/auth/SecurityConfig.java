@@ -35,6 +35,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // "/error" is where Spring forwards failures; without it every error would look like a 401.
                         .requestMatchers("/api/health", "/api/auth/register", "/api/auth/login", "/error").permitAll()
+                        // API docs are readable without a token: /api/docs/** is the spec (and the UI's config),
+                        // /api/swagger-ui/** is the Swagger UI page and its scripts, which /api/docs redirects to.
+                        .requestMatchers("/api/docs", "/api/docs/**", "/api/swagger-ui/**").permitAll()
                         .anyRequest().authenticated())
                 // Read "Authorization: Bearer <token>", verify it with the JwtDecoder below, reject with 401 if invalid.
                 .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
